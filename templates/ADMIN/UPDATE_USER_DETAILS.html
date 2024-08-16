@@ -1,0 +1,163 @@
+{% extends "base.html" %} {% block content %}
+<script defer src="/static/js/script1.js"></script>
+
+<style>
+  .table-container:first-child {
+    max-width: 300px;
+  }
+
+  .code-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+  }
+
+  .code-table th,
+  .code-table td {
+    padding: 8px;
+    text-align: left;
+    border: 1px solid #ddd;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .code-table th {
+    background-color: rgba(255, 255, 255, 0.5);
+    font-weight: 600;
+  }
+
+  .table-container:last-child {
+    overflow-x: auto;
+  }
+
+  .code-table:last-child {
+    min-width: 1000px;
+  }
+</style>
+
+<div id="frame_container">
+  <h5 class="section-header">Update User Details</h5>
+  <div class="data-frame">
+    <div class="frame">
+      <div class="sections">
+        <!-- First Table -->
+        <div class="table-container">
+          <table class="code-table table-striped table-bordered">
+            <tr>
+              <th>Username</th>
+              <th>Action</th>
+            </tr>
+            <tr>
+              <td>
+                <select class="text-field" name="USERNAME" id="USERNAME">
+                  <option value="" selected>Select Username</option>
+                  {% for username in usernameList %}
+                  <option value="{{username}}">{{username}}</option>
+                  {% endfor %}
+                </select>
+              </td>
+
+              <td>
+                <button
+                  id="submit_button"
+                  type="submit"
+                  class="btn btn-sm col-sm-6 btn-row"
+                  onclick="view_user_details()"
+                >
+                  View User Details
+                </button>
+                <!-- <button -->
+                <!-- id="submit_button" -->
+                <!-- type="submit" -->
+                <!-- class="btn col-sm-6 btn-row" -->
+                <!-- onclick="delete_user_details()" -->
+                <!-- > -->
+                <!-- Delete User -->
+                <!-- </button> -->
+              </td>
+            </tr>
+          </table>
+        </div>
+        <hr size="10" />
+
+        <!-- Second Table -->
+        <div class="table-container">
+          <table
+            class="code-table table-striped table-bordered"
+            id="USERTABLE"
+            name="USERTABLE"
+          >
+            <tr>
+              <th>Role</th>
+              <th>Username</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Email ID</th>
+              <th>Status</th>
+            </tr>
+          </table>
+        </div>
+        <br />
+      </div>
+    </div>
+  </div>
+  <hr size="10" />
+  <div id="action-row">
+    <button
+      id="user_details_button"
+      name="user_details_button"
+      type="submit"
+      class="btn col-sm-2 add_user-btn"
+      onclick="confirmUpdateUserDetails()"
+    >
+      Update User Details
+    </button>
+  </div>
+</div>
+
+<div id="confirmationModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeConfirmationModal()">&times;</span>
+    <p class="confirmation-text">Are you sure you want to update user details?</p>
+    <div class="button-container">
+      <button
+        id="confirmButton"
+        class="confirm-button"
+        onclick="updateUserDetailsAndCloseModal()"
+      >
+        Confirm
+      </button>
+      <button
+        id="cancelButton"
+        class="cancel-button"
+        onclick="closeConfirmationModal()"
+      >
+        Cancel
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  $(document).ready(function () {
+    var role = "{{ role }}";
+    handle_nav_bar(role);
+  });
+
+  function confirmUpdateUserDetails() {
+    var modal = document.getElementById("confirmationModal");
+    modal.style.display = "flex";
+  }
+
+  function closeConfirmationModal() {
+    var modal = document.getElementById("confirmationModal");
+    modal.style.display = "none";
+  }
+
+  function updateUserDetailsAndCloseModal() {
+    update_user_details();
+    closeConfirmationModal();
+  }
+</script>
+{% endblock %}

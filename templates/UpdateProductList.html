@@ -1,0 +1,221 @@
+{% extends "base.html" %} {% block content %}
+
+<script defer src="static/js/script1.js"></script>
+<script defer src="static/js/template.js"></script>
+
+<!-- FRAME SECTION START -->
+<div id="frame_container">
+  <h5 class="section-header">Product Description</h5>
+  <div class="data-frame">
+    <div class="frame">
+      <div class="sections">
+        <div class="table-responsive">
+          <table class="code_table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th>Product Name</th>
+                <th>Generic Name</th>
+                <th>Form</th>
+                <th>API with Strength</th>
+                <th>Minimum Batch Size NOS</th>
+                <th>Minimum Batch Size MG</th>
+                <th>MRDD</th>
+                <th>LRDD MG</th>
+                <th>LRDD NOS</th>
+                <th>PDE Value</th>
+                <th>LD50</th>
+                <th>NOEL</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for product in product_list %}
+              <tr>
+                <td>
+                  <input
+                    type="text"
+                    name="Product_Name"
+                    class="text-field"
+                    value="{{product.Product_Name}}"
+                  />
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    name="Generic_Name"
+                    class="text-field"
+                    value="{{product.Generic_Name}}"
+                  />
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    name="Form"
+                    class="text-field"
+                    value="{{product.Form}}"
+                  />
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    name="API_with_strength"
+                    class="text-field"
+                    value="{{product.API_with_strength}}"
+                  />
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    name="Minimum_Batch_size_NOS"
+                    class="text-field"
+                    value="{{product.Minimum_Batch_size_NOS}}"
+                  />
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    name="Minimum_Batch_size_MG"
+                    class="text-field"
+                    value="{{product.Minimum_Batch_size_MG}}"
+                  />
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    name="MRDD"
+                    class="text-field"
+                    value="{{product.MRDD}}"
+                  />
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    name="LRDD_MG"
+                    class="text-field"
+                    value="{{product.LRDD_MG}}"
+                  />
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    name="LRDD_NOS"
+                    class="text-field"
+                    value="{{product.LRDD_NOS}}"
+                  />
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    name="PDE_VALUE"
+                    class="text-field"
+                    value="{{product.PDE_VALUE}}"
+                  />
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    name="LD50"
+                    class="text-field"
+                    value="{{product.LD50}}"
+                  />
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    name="NOEL"
+                    class="text-field"
+                    value="{{product.NOEL}}"
+                  />
+                </td>
+                <td class="del-row">
+                  <span class="delete-row" onclick="delete_row(this)">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      height="0.625em"
+                      viewBox="0 0 512 512"
+                    >
+                      <style>
+                        svg {
+                          fill: #ff0000;
+                        }
+                      </style>
+                      <path
+                        d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM184 232H328c13.3 0 24 10.7 24 24s-10.7 24-24 24H184c-13.3 0-24-10.7-24-24s10.7-24 24-24z"
+                      />
+                    </svg>
+                  </span>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+
+          <div class="add-row-button">
+            <button
+              id="add_row1"
+              type="button"
+              class="btn col-sm-2 add-row btn-row"
+              onclick="add_row(this)"
+            >
+              Add Row
+            </button>
+          </div>
+          <hr size="10" />
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr size="10" />
+  <div id="action-row">
+    <button
+      id="submit_button"
+      type="submit"
+      class="btn col-sm-2 add_user-btn"
+      onclick="confirmUpdateProductList()"
+    >
+      Submit
+    </button>
+  </div>
+</div>
+
+<div id="confirmationModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeConfirmationModal()">&times;</span>
+    <p class="confirmation-text">Are you sure you want to update?</p>
+    <div class="button-container">
+      <button
+        id="confirmButton"
+        class="confirm-button"
+        onclick="updateProductListAndCloseModal()"
+      >
+        Confirm
+      </button>
+      <button
+        id="cancelButton"
+        class="cancel-button"
+        onclick="closeConfirmationModal()"
+      >
+        Cancel
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  function confirmUpdateProductList() {
+    var modal = document.getElementById("confirmationModal");
+    modal.style.display = "flex";
+  }
+
+  function closeConfirmationModal() {
+    var modal = document.getElementById("confirmationModal");
+    modal.style.display = "none";
+  }
+
+  function updateProductListAndCloseModal() {
+    updateProductList();
+    closeConfirmationModal();
+  }
+</script>
+
+{% endblock %}

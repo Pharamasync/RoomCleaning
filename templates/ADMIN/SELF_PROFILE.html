@@ -1,0 +1,124 @@
+{% extends "base.html" %} {% block content %}
+<script defer src="/static/js/script1.js"></script>
+
+<div id="frame_container">
+  <h5 class="section-header">Profile Details</h5>
+  <div id="data_frame">
+    <div class="frame">
+      <div class="sections">
+        <div class="form-group">
+          <label class="form-label col-form-label">Username</label>
+          <input
+            type="text"
+            name="company_address"
+            id="USERNAME"
+            value="{{ user_detail[0].USERNAME }}"
+            class="text-field"
+            disabled
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label col-form-label">First Name</label>
+          <input
+            type="text"
+            name="company_address"
+            id="FNAME"
+            value="{{ user_detail[0].FNAME }}"
+            class="text-field"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label col-form-label">Last Name</label>
+          <input
+            type="text"
+            name="company_address"
+            id="LNAME"
+            value="{{ user_detail[0].LNAME }}"
+            class="text-field"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label col-form-label">Email Id</label>
+          <input
+            type="text"
+            name="company_address"
+            id="EMAILID"
+            value="{{ user_detail[0].EMAILID }}"
+            class="text-field"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label col-form-label">Password</label>
+          <input
+            type="password"
+            name="company_address"
+            id="PASSWORD"
+            class="text-field"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr size="10" />
+  <div id="action_row">
+    <button
+      id="user_details_button"
+      name="user_details_button"
+      type="submit"
+      class="btn col-sm-2 add_user-btn"
+      onclick="confirmUpdateProfileDetails()"
+    >
+      Update User Details
+    </button>
+  </div>
+</div>
+
+<div id="confirmationModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeConfirmationModal()">&times;</span>
+    <p class="confirmation-text">Are you sure you want to update profile details?</p>
+    <div class="button-container">
+      <button
+        id="confirmButton"
+        class="confirm-button"
+        onclick="updateProfileDetailsAndCloseModal()"
+      >
+        Confirm
+      </button>
+      <button
+        id="cancelButton"
+        class="cancel-button"
+        onclick="closeConfirmationModal()"
+      >
+        Cancel
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  $(document).ready(function () {
+    var role = "{{ role }}";
+    handle_nav_bar(role);
+  });
+
+  function confirmUpdateProfileDetails() {
+    var modal = document.getElementById("confirmationModal");
+    modal.style.display = "flex";
+  }
+
+  function closeConfirmationModal() {
+    var modal = document.getElementById("confirmationModal");
+    modal.style.display = "none";
+  }
+
+  function updateProfileDetailsAndCloseModal() {
+    update_profile_details();
+    closeConfirmationModal();
+  }
+</script>
+{% endblock %}
